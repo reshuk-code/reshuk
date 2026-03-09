@@ -1,42 +1,29 @@
+"use client";
+import { useEffect, useRef } from "react";
+
+const TECH = ["Next.js", "React", "Node.js", "TypeScript", "MongoDB", "Socket.io", "Redis", "Tailwind", "Three.js", "GSAP", "Framer Motion", "Firebase", "Stripe", "Expo", "Supabase", "Vercel"];
+
 export default function Marquee() {
-  const items = [
-    "Next.js", "React", "Node.js", "TypeScript", "Tailwind CSS",
-    "PostgreSQL", "MongoDB", "Docker", "Git", "REST APIs",
-    "Full-Stack", "UI/UX", "Open Source",
-  ];
-
-  const doubled = [...items, ...items];
-
   return (
-    <div
-      style={{
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
-        background: "var(--card)",
-        padding: "14px 0",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
+    <div style={{
+      borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)",
+      padding: "20px 0", overflow: "hidden", position: "relative", background: "var(--card)",
+    }}>
+      {/* Fade edges */}
+      <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "120px", background: "linear-gradient(to right, var(--card), transparent)", zIndex: 2, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "120px", background: "linear-gradient(to left, var(--card), transparent)", zIndex: 2, pointerEvents: "none" }} />
+
       <div className="marquee-track">
-        {doubled.map((item, i) => (
-          <span
-            key={i}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "20px",
-              paddingRight: "48px",
-              fontFamily: "var(--font-dm-mono)",
-              fontSize: "0.72rem",
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: i % 3 === 0 ? "var(--accent)" : "var(--muted)",
-              whiteSpace: "nowrap",
-            }}
-          >
+        {[...TECH, ...TECH].map((item, i) => (
+          <span key={i} style={{
+            display: "inline-flex", alignItems: "center", gap: "20px",
+            padding: "0 28px",
+            fontFamily: "var(--font-mono)", fontSize: "0.7rem",
+            color: i % 3 === 0 ? "var(--accent)" : "var(--muted2)",
+            letterSpacing: "0.1em", textTransform: "uppercase", whiteSpace: "nowrap",
+          }}>
             {item}
-            <span style={{ opacity: 0.3, fontSize: "0.5rem" }}>◆</span>
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--border2)", display: "inline-block" }} />
           </span>
         ))}
       </div>

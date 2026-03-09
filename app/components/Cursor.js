@@ -3,72 +3,71 @@ import { useEffect, useRef } from "react";
 
 export default function Cursor() {
   const cursorRef = useRef(null);
-  const followerRef = useRef(null);
+  const ringRef = useRef(null);
+  const posRef = useRef({ x: 0, y: 0 });
+  const ringPosRef = useRef({ x: 0, y: 0 });
+  const rafRef = useRef(null);
 
   useEffect(() => {
     const cursor = cursorRef.current;
-    const follower = followerRef.current;
-    if (!cursor || !follower) return;
+    const ring = ringRef.current;
+    if (!cursor || !ring) return;
 
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
-    let rafId;
-
-    const moveCursor = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX + "px";
-      cursor.style.top = mouseY + "px";
+    const onMove = (e) => {
+      posRef.current = { x: e.clientX, y: e.clientY };
+      cursor.style.left = e.clientX + "px";
+      cursor.style.top = e.clientY + "px";
     };
+
+    const lerp = (a, b, t) => a + (b - a) * t;
 
     const animate = () => {
-      followerX += (mouseX - followerX) * 0.12;
-      followerY += (mouseY - followerY) * 0.12;
-      follower.style.left = followerX + "px";
-      follower.style.top = followerY + "px";
-      rafId = requestAnimationFrame(animate);
+      ringPosRef.current.x = lerp(ringPosRef.current.x, posRef.current.x, 0.1);
+      ringPosRef.current.y = lerp(ringPosRef.current.y, posRef.current.y, 0.1);
+      ring.style.left = ringPosRef.current.x + "px";
+      ring.style.top = ringPosRef.current.y + "px";
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+
+    const onEnter = (e) => {
+      const t = e.target;
+      if (t.matches("a, button, [data-cursor], .project-card, .skill-pill")) {
+        cursor.classList.add("expand");
+        ring.classList.add("expand");
+      }
+      if (t.matches("input, textarea")) {
+        cursor.classList.add("text-mode");
+        ring.classList.add("text-mode");
+      }
+    };
+    const onLeave = (e) => {
+      const t = e.target;
+      if (t.matches("a, button, [data-cursor], .project-card, .skill-pill")) {
+        cursor.classList.remove("expand");
+        ring.classList.remove("expand");
+      }
+      if (t.matches("input, textarea")) {
+        cursor.classList.remove("text-mode");
+        ring.classList.remove("text-mode");
+      }
     };
 
-    const addHover = () => {
-      cursor.classList.add("hovering");
-      follower.classList.add("hovering");
-    };
-    const removeHover = () => {
-      cursor.classList.remove("hovering");
-      follower.classList.remove("hovering");
-    };
-
-    document.addEventListener("mousemove", moveCursor);
-
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll("a, button, [data-hover]").forEach((el) => {
-        el.removeEventListener("mouseenter", addHover);
-        el.removeEventListener("mouseleave", removeHover);
-        el.addEventListener("mouseenter", addHover);
-        el.addEventListener("mouseleave", removeHover);
-      });
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    document.querySelectorAll("a, button, [data-hover]").forEach((el) => {
-      el.addEventListener("mouseenter", addHover);
-      el.addEventListener("mouseleave", removeHover);
-    });
-
-    animate();
-
+    window.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("mouseover", onEnter);
+    document.addEventListener("mouseout", onLeave);
     return () => {
-      document.removeEventListener("mousemove", moveCursor);
-      cancelAnimationFrame(rafId);
-      observer.disconnect();
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onEnter);
+      document.removeEventListener("mouseout", onLeave);
+      cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
   return (
     <>
-      <div ref={cursorRef} className="cursor" />
-      <div ref={followerRef} className="cursor-follower" />
+      <div ref={cursorRef} className="cursor" style={{ position: "fixed", pointerEvents: "none" }} />
+      <div ref={ringRef} className="cursor-ring" style={{ position: "fixed", pointerEvents: "none" }} />
     </>
   );
 }

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reshuk Sapkota — CV</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --card: #111111;
+    --border: #222222;
+    --muted: #888888;
+    --fg: #f5f5f5;
+    --accent: #e8ff47;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  /* Download bar */
+  .dl-bar {
+    width: 100%;
+    max-width: 860px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .dl-bar span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #0a0a0a;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .dl-btn:hover { opacity: 0.85; }
+
+  /* CV wrapper */
+  .cv {
+    width: 100%;
+    max-width: 860px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    min-height: 1100px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    padding: 0 0 32px;
+    position: relative;
+  }
+  .sidebar-accent {
+    height: 6px;
+    background: var(--accent);
+    width: 100%;
+    margin-bottom: 28px;
+  }
+  .sidebar-inner { padding: 0 20px; }
+  .s-name-big {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .s-name-italic {
+    font-size: 1.1rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .s-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .s-section { margin-top: 20px; }
+  .s-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .s-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .s-value {
+    font-size: 0.8rem;
+    color: var(--fg);
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+  .s-muted {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 3px;
+    line-height: 1.5;
+    word-break: break-all;
+  }
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .skill-list li {
+    font-size: 0.75rem;
+    color: var(--muted);
+    padding-left: 10px;
+    position: relative;
+  }
+  .skill-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.6rem;
+  }
+
+  /* Main */
+  .main { padding: 32px 36px; }
+  .main-hero { margin-bottom: 32px; }
+  .main-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .main-title-muted {
+    font-size: 1.9rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .main-bio {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 14px;
+    max-width: 480px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid var(--accent);
+    background: rgba(232,255,71,0.05);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-top: 14px;
+  }
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+    flex-shrink: 0;
+  }
+
+  /* Section */
+  .section { margin-top: 28px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Project card */
+  .project {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+  .project-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+  .project-url {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .project-url:hover { opacity: 0.8; }
+  .project-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+  .project-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 7px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Facts grid */
+  .facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+  }
+  .fact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .fact-value {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--fg);
+  }
+
+  /* Footer */
+  .cv-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cv-footer span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  @media print {
+    body { background: var(--bg) !important; padding: 0; }
+    .dl-bar { display: none; }
+    .cv { border: none; border-radius: 0; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Download bar -->
+<div class="dl-bar">
+  <span>reshuk-sapkota-cv.html</span>
+  <a class="dl-btn" href="#" onclick="window.print(); return false;">
+    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+      <path d="M7 2v7M4 6l3 3 3-3M2 10v2h10v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Download / Print
+  </a>
+</div>
+
+<!-- CV -->
+<div class="cv">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-accent"></div>
+    <div class="sidebar-inner">
+      <div class="s-name-big">RESHUK</div>
+      <div class="s-name-italic">Sapkota</div>
+      <div class="s-role">Full-Stack Developer</div>
+
+      <div class="s-section">
+        <div class="s-label">Contact</div>
+        <div class="s-muted">reshuksapkota@gmail.com</div>
+        <div class="s-muted">Biratnagar, Nepal</div>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">Links</div>
+        <div class="s-muted">github.com/reshuk-code</div>
+        <div class="s-muted">x.com/rscode2007</div>
+        <div class="s-muted">linkedin.com/in/reshuk-sapkota-798537374</div>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">Frontend</div>
+        <ul class="skill-list">
+          <li>Next.js</li><li>React</li><li>TypeScript</li>
+          <li>Tailwind CSS</li><li>Framer Motion</li>
+          <li>GSAP</li><li>Three.js</li><li>Vite</li>
+        </ul>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">Backend</div>
+        <ul class="skill-list">
+          <li>Node.js</li><li>Express</li>
+          <li>Socket.io</li><li>REST APIs</li><li>Zod</li>
+        </ul>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">Database</div>
+        <ul class="skill-list">
+          <li>MongoDB</li><li>Firebase</li>
+          <li>Redis</li><li>Supabase</li>
+        </ul>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">Mobile</div>
+        <ul class="skill-list">
+          <li>React Native</li><li>Expo</li>
+        </ul>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">Tools</div>
+        <ul class="skill-list">
+          <li>Git</li><li>Vercel</li><li>Stripe</li>
+          <li>Cloudinary</li><li>Figma</li><li>Radix UI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="main-hero">
+      <div class="main-title">Full-Stack</div>
+      <div class="main-title-muted">Developer</div>
+      <p class="main-bio">
+        I build fast, clean, and thoughtful digital products — from SaaS tools to developer utilities.
+        Obsessed with great UX and elegant code. 2+ years shipping full-stack apps with real-world impact.
+      </p>
+      <div class="badge">
+        <div class="badge-dot"></div>
+        Available for freelance
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Projects</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">AntQR</div>
+          <a class="project-url" href="https://antqr.xyz" target="_blank">antqr.xyz ↗</a>
+        </div>
+        <div class="project-tagline">Nepal's Community Social Platform</div>
+        <p class="project-desc">Full-featured Nepal-first social network with communities, real-time messaging, reels, PWA support, bi-lingual (English &amp; Nepali), custom feed algorithm, and admin panel.</p>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">MongoDB</span><span class="tag">Clerk Auth</span>
+          <span class="tag">Socket.io</span><span class="tag">Redis</span><span class="tag">Cloudinary</span>
+          <span class="tag">GSAP</span><span class="tag">Three.js</span><span class="tag">Zustand</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">BucketURL</div>
+          <a class="project-url" href="https://bucketurl.onrender.com" target="_blank">bucketurl.onrender.com ↗</a>
+        </div>
+        <div class="project-tagline">URL Shortener with Deep Analytics</div>
+        <p class="project-desc">Production-grade URL shortener with dashboard, custom slugs, real-time click analytics (UTM, device, country, referrer), QR codes, team workspaces, and Stripe billing.</p>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">Firebase</span><span class="tag">Stripe</span>
+          <span class="tag">Radix UI</span><span class="tag">Recharts</span><span class="tag">Cloudinary</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">Paisa Studio</div>
+          <a class="project-url" href="https://paisa-studio.onrender.com" target="_blank">paisa-studio.onrender.com ↗</a>
+        </div>
+        <div class="project-tagline">Nepal Payment QR Generator</div>
+        <p class="project-desc">Nepal-focused EMV-compliant QR tool for eSewa &amp; FonePay merchants. Custom styles, logo embedding, QR scanning, downloadable codes, and an Android app on Expo.</p>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">Vite</span><span class="tag">Canvas API</span>
+          <span class="tag">EMV QR</span><span class="tag">Expo (Android)</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <div class="project-name">InLink</div>
+          <a class="project-url" href="https://inlink.antqr.xyz" target="_blank">inlink.antqr.xyz ↗</a>
+        </div>
+        <div class="project-tagline">Bio Link Pages — part of AntQR</div>
+        <p class="project-desc">Customizable bio link page builder. Turn a single URL into a branded hub with socials, projects, and content all in one place.</p>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">Tailwind CSS</span>
+          <span class="tag">MongoDB</span><span class="tag">Clerk Auth</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- About / Facts -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">About</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="facts">
+        <div>
+          <div class="fact-label">Location</div>
+          <div class="fact-value">Biratnagar, Nepal</div>
+        </div>
+        <div>
+          <div class="fact-label">Focus</div>
+          <div class="fact-value">Full-Stack Development</div>
+        </div>
+        <div>
+          <div class="fact-label">Education</div>
+          <div class="fact-value">Computer Science</div>
+        </div>
+        <div>
+          <div class="fact-label">Status</div>
+          <div class="fact-value">Open to Freelance</div>
+        </div>
+        <div>
+          <div class="fact-label">Experience</div>
+          <div class="fact-value">2+ Years Building</div>
+        </div>
+        <div>
+          <div class="fact-label">Projects Shipped</div>
+          <div class="fact-value">5+</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="cv-footer">
+      <span>reshuksapkota@gmail.com</span>
+      <span>github.com/reshuk-code</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
