@@ -90,7 +90,7 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: 0, flexShrink: 0 }}>
           <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1rem", color: "var(--fg)", letterSpacing: "-0.02em", lineHeight: 1 }}>RESHUK</span>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.52rem", color: "var(--accent)", letterSpacing: "0.16em" }}>.DEV</span>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.52rem", color: "var(--accent)", letterSpacing: "0.16em" }}>.COM.NP</span>
         </a>
 
         {/* ── Desktop center pill ── */}
@@ -144,7 +144,7 @@ export default function Navbar() {
             onMouseEnter={e => { e.currentTarget.style.background = "rgba(232,255,71,0.08)"; e.currentTarget.style.borderColor = "var(--accent)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(232,255,71,0.3)"; }}
           >🥟 Momo</Link>
-          <a href="mailto:reshuksapkota@gmail.com" className="btn-primary" style={{ padding: "7px 15px", fontSize: "0.7rem" }}>
+          <a href="mailto:reshuksapkota2007@gmail.com" className="btn-primary" style={{ padding: "7px 15px", fontSize: "0.7rem" }}>
             Hire me
           </a>
         </div>
@@ -235,7 +235,7 @@ export default function Navbar() {
         })}
 
         <a
-          href="mailto:reshuksapkota@gmail.com"
+          href="mailto:reshuksapkota2007gmail.com"
           onClick={() => setMenuOpen(false)}
           className="btn-primary"
           style={{

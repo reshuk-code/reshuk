@@ -89,7 +89,7 @@ export default function Contact() {
           {/* Info rows */}
           <div data-r style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "40px" }}>
             {[
-              { icon: "✉", label: "reshuksapkota@gmail.com", href: "mailto:reshuksapkota@gmail.com" },
+              { icon: "✉", label: "reshuksapkota2007gmail.com", href: "mailto:reshuksapkota2007gmail.com" },
               { icon: "◉", label: "Biratnagar, Nepal", href: null },
             ].map((item, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
