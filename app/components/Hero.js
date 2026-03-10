@@ -234,23 +234,24 @@ export default function Hero() {
           </div>
 
           {/* Name — scramble effect */}
-          <div style={{ marginBottom: "6px", ...fadeUp(1) }}>
-            <h1 className="display hero-name" style={{
-              color: "var(--fg)", position: "relative",
-              fontVariantNumeric: "tabular-nums",
-            }}>
+          <h1 className="display hero-name" style={{
+            marginBottom: "24px",
+            color: "var(--fg)",
+            position: "relative",
+            fontVariantNumeric: "tabular-nums",
+            lineHeight: 1.1,
+            ...fadeUp(1)
+          }}>
+            <div style={{ marginBottom: "6px" }}>
               <GlitchSpan color="var(--fg)">{name1}</GlitchSpan>
-            </h1>
-          </div>
-          <div style={{ marginBottom: "24px", ...fadeUp(2) }}>
-            <h1 className="display hero-name" style={{
+            </div>
+            <div style={{ 
               WebkitTextStroke: "1px rgba(238,234,224,0.22)",
               color: "transparent",
-              fontVariantNumeric: "tabular-nums",
             }}>
               <GlitchSpan color="transparent">{name2}</GlitchSpan>
-            </h1>
-          </div>
+            </div>
+          </h1>
 
           {/* Role typewriter */}
           <div className="hero-typewriter" style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px", ...fadeUp(3) }}>

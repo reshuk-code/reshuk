@@ -23,11 +23,68 @@ const dmMono = DM_Mono({
 });
 
 export const metadata = {
-  title: "Reshuk Sapkota — Developer & Builder",
-  description: "Full-stack developer building tools, apps, and digital experiences. Crafting with Next.js, React, and a love for clean design.",
-  keywords: ["Reshuk Sapkota", "developer", "portfolio", "Next.js", "full-stack", "Nepal"],
+  metadataBase: new URL("https://reshuksapkota.com.np"),
+  title: {
+    default: "Reshuk Sapkota — Developer & Builder",
+    template: "%s | Reshuk Sapkota",
+  },
+  description:
+    "Full-stack developer building tools, apps, and digital experiences. Crafting with Next.js, React, and a love for clean design.",
+  keywords: [
+    "Reshuk Sapkota",
+    "developer",
+    "portfolio",
+    "Next.js",
+    "full-stack",
+    "Nepal",
+    "software engineer",
+    "builder",
+  ],
+  authors: [{ name: "Reshuk Sapkota" }],
+  creator: "Reshuk Sapkota",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://reshuksapkota.com.np",
+    siteName: "Reshuk Sapkota",
+    title: "Reshuk Sapkota — Developer & Builder",
+    description:
+      "Full-stack developer building tools, apps, and digital experiences. Crafting with Next.js, React, and a love for clean design.",
+    images: [
+      {
+        url: "/opengraph-image", // Next.js will automatically handle this
+        width: 1200,
+        height: 630,
+        alt: "Reshuk Sapkota — Developer & Builder",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Reshuk Sapkota — Developer & Builder",
+    description:
+      "Full-stack developer building tools, apps, and digital experiences. Crafting with Next.js, React, and a love for clean design.",
+    creator: "@reshuk_sapkota",
+    images: ["/opengraph-image"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
-    icon: "/favicon.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+  alternates: {
+    canonical: "https://reshuksapkota.com.np",
   },
 };
 

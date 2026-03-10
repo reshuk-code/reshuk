@@ -9,8 +9,25 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Reshuk Sapkota",
+    url: "https://reshuksapkota.com.np",
+    jobTitle: "Full-stack Developer",
+    sameAs: [
+      "https://github.com/reshuk-code",
+      "https://twitter.com/reshuk_sapkota", // Ensure these are correct
+    ],
+    description: "Full-stack developer building tools, apps, and digital experiences.",
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Cursor />
       <Navbar />
       <main>
