@@ -6,7 +6,7 @@ const GITHUB = "https://github.com/reshuk-code";
 const projects = [
   {
     id: "01",
-    name: "AntQR",
+    name: "antqr",
     tagline: "Nepal's Community Social Platform",
     description: "A full-featured Nepal-first social network — create posts, join communities, follow people, explore hashtags, send messages, and watch reels. Supports English and नेपाली. Includes PWA support, real-time notifications, admin panel, and custom feed algorithm.",
     stack: ["Next.js", "MongoDB", "Clerk Auth", "Socket.io", "Redis", "Cloudinary", "GSAP", "Three.js", "Zustand"],
@@ -43,8 +43,8 @@ const projects = [
   {
     id: "04",
     name: "InLink",
-    tagline: "Bio Link Pages — AntQR Ecosystem",
-    description: "A customizable bio link page builder living under the AntQR ecosystem. Turn a single URL into a branded hub — add your socials, projects, and content. Clean, fast, and shareable.",
+    tagline: "P2P file sharing",
+    description: "P2P file sharing via QR codes. No cloud. No upload. Just scan and receive — in real time.",
     stack: ["Next.js", "Tailwind CSS", "MongoDB", "Clerk Auth"],
     link: "https://inlink.antqr.xyz",
     github: null,
