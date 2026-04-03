@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     reactCompiler: true,
   },
+  serverExternalPackages: ['@netlify/blobs'],
 };
 
 export default nextConfig;

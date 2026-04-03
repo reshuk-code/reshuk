@@ -1,6 +1,7 @@
 import { writeFile, readFile, mkdir, unlink } from 'fs/promises';
 import { existsSync, readdirSync } from 'fs';
 import path from 'path';
+import { getStore } from '@netlify/blobs';
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'posts');
 const isNetlify = process.env.NETLIFY === 'true' || process.env.CONTEXT;
@@ -14,7 +15,6 @@ async function ensureDir() {
 async function getPosts() {
   try {
     if (isNetlify) {
-      const { getStore } = await import('@netlify/blobs');
       const store = getStore('blog-posts');
       const { blobs } = await store.list();
       const posts = [];
@@ -45,7 +45,6 @@ async function getPosts() {
 async function getPostByKey(key) {
   try {
     if (isNetlify) {
-      const { getStore } = await import('@netlify/blobs');
       const store = getStore('blog-posts');
       return await store.get(key, { type: 'json' });
     }
@@ -64,7 +63,6 @@ async function savePost(post) {
   const key = `post-${post.id}`;
 
   if (isNetlify) {
-    const { getStore } = await import('@netlify/blobs');
     const store = getStore('blog-posts');
     await store.set(key, post);
     return;
@@ -77,7 +75,6 @@ async function savePost(post) {
 
 async function deletePostByKey(key) {
   if (isNetlify) {
-    const { getStore } = await import('@netlify/blobs');
     const store = getStore('blog-posts');
     await store.delete(key);
     return;
