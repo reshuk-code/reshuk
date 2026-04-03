@@ -1,11 +1,15 @@
 import Link from 'next/link';
 
 async function getPosts() {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/blog`, { cache: 'no-store' });
-  if (!res.ok) return [];
-  const posts = await res.json();
-  return posts.filter(p => p.published);
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/blog`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    const posts = await res.json();
+    return posts.filter(p => p.published);
+  } catch {
+    return [];
+  }
 }
 
 export const metadata = {
