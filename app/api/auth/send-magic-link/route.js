@@ -35,8 +35,9 @@ export async function POST(request) {
     }
 
     const { token, expires, signature } = generateToken(email);
-    const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
-    const loginUrl = `${baseUrl}/api/auth/verify-magic-link?email=${encodeURIComponent(email)}&token=${token}&expires=${expires}&sig=${signature}`;
+    
+    const siteUrl = process.env.SITE_URL || 'https://reshuksapkota.com.np';
+    const loginUrl = `${siteUrl}/api/auth/verify-magic-link?email=${encodeURIComponent(email)}&token=${token}&expires=${expires}&sig=${signature}`;
 
     console.log('Sending email to:', email);
     console.log('Login URL:', loginUrl);

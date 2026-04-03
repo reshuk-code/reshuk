@@ -20,16 +20,19 @@ export async function GET(request) {
   const expires = searchParams.get('expires');
   const sig = searchParams.get('sig');
 
+  const url = new URL(request.url);
+  const origin = url.origin;
+
   if (!email || !token || !expires || !sig) {
-    return NextResponse.redirect(new URL('/login?error=invalid', request.url));
+    return NextResponse.redirect(new URL('/login?error=invalid', origin));
   }
 
   if (!verifyToken(email, token, expires, sig)) {
-    return NextResponse.redirect(new URL('/login?error=invalid', request.url));
+    return NextResponse.redirect(new URL('/login?error=invalid', origin));
   }
 
   if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-    return NextResponse.redirect(new URL('/login?error=unauthorized', request.url));
+    return NextResponse.redirect(new URL('/login?error=unauthorized', origin));
   }
 
   const sessionToken = randomBytes(32).toString('hex');
@@ -44,5 +47,5 @@ export async function GET(request) {
     maxAge: 7 * 24 * 60 * 60,
   });
 
-  return NextResponse.redirect(new URL('/admin', request.url));
+  return NextResponse.redirect(new URL('/admin', origin));
 }
