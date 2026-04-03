@@ -7,6 +7,7 @@ const navLinks = [
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
   { href: "#contact", label: "Contact" },
+  { href: "/blog", label: "Blog", external: true },
 ];
 
 export default function Navbar() {
@@ -106,9 +107,11 @@ export default function Navbar() {
           boxShadow: scrolled ? "0 0 0 1px rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.3)" : "none",
         }}>
           {navLinks.map((link) => {
-            const isActive = activeSection === link.href.replace("#", "");
+            const isActive = !link.external && activeSection === link.href.replace("#", "");
+            const Tag = link.external ? Link : "a";
+            const props = link.external ? { href: link.href } : { href: link.href };
             return (
-              <a key={link.href} href={link.href} style={{
+              <Tag key={link.href} {...props} style={{
                 fontSize: "0.72rem", fontFamily: "var(--font-display)", fontWeight: 600,
                 color: isActive ? "#060608" : "var(--muted)",
                 textDecoration: "none", letterSpacing: "0.03em",
@@ -119,7 +122,7 @@ export default function Navbar() {
               }}
                 onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = "var(--fg)"; }}
                 onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = "var(--muted)"; }}
-              >{link.label}</a>
+              >{link.label}</Tag>
             );
           })}
         </div>
@@ -208,11 +211,13 @@ export default function Navbar() {
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, var(--border2), transparent)" }} />
 
         {navLinks.map((link, i) => {
-          const isActive = activeSection === link.href.replace("#", "");
+          const isActive = !link.external && activeSection === link.href.replace("#", "");
+          const Tag = link.external ? Link : "a";
+          const props = link.external ? { href: link.href } : { href: link.href };
           return (
-            <a
+            <Tag
               key={link.href}
-              href={link.href}
+              {...props}
               onClick={() => setMenuOpen(false)}
               style={{
                 fontFamily: "var(--font-display)", fontWeight: 800,
@@ -230,7 +235,7 @@ export default function Navbar() {
             >
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--muted2)", letterSpacing: "0.14em", alignSelf: "flex-start", marginTop: "6px" }}>0{i + 1}</span>
               {link.label}
-            </a>
+            </Tag>
           );
         })}
 

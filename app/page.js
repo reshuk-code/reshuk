@@ -6,9 +6,21 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+import BlogSection from "./components/BlogSection";
 import Footer from "./components/Footer";
+import Link from "next/link";
 
-export default function Home() {
+async function getPosts() {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/blog`, { cache: 'no-store' });
+  if (!res.ok) return [];
+  const posts = await res.json();
+  return posts.filter(p => p.published).slice(0, 3);
+}
+
+export default async function Home() {
+  const posts = await getPosts();
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -17,7 +29,7 @@ export default function Home() {
     jobTitle: "Full-stack Developer",
     sameAs: [
       "https://github.com/reshuk-code",
-      "https://twitter.com/reshuk_sapkota", // Ensure these are correct
+      "https://twitter.com/reshuk_sapkota",
     ],
     description: "Full-stack developer building tools, apps, and digital experiences.",
   };
@@ -37,6 +49,7 @@ export default function Home() {
         <Projects />
         <Skills />
         <Contact />
+        <BlogSection posts={posts} />
       </main>
       <Footer />
     </>

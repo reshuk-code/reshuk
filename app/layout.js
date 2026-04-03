@@ -1,5 +1,6 @@
 import { DM_Mono, Syne, Inter } from "next/font/google";
 import "./globals.css";
+import Cursor from "./components/Cursor";
 
 const syne = Syne({
   variable: "--font-display",
@@ -94,6 +95,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${syne.variable} ${inter.variable} ${dmMono.variable} antialiased`}>
+        <Cursor />
         {children}
       </body>
     </html>
