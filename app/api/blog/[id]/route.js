@@ -1,4 +1,4 @@
-import { getPostByKey, savePost, deletePostByKey, getAllPosts } from '../route';
+import { getPostByKey, savePost, deletePostByKey, getPosts as getAllPosts } from '../route';
 
 export async function GET(request, { params }) {
   try {

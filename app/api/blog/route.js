@@ -3,6 +3,7 @@ import { existsSync, readdirSync } from 'fs';
 import path from 'path';
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'posts');
+const isNetlify = process.env.NETLIFY === 'true' || process.env.CONTEXT;
 
 async function ensureDir() {
   if (!existsSync(DATA_DIR)) {
@@ -12,6 +13,20 @@ async function ensureDir() {
 
 async function getPosts() {
   try {
+    if (isNetlify) {
+      const { getStore } = await import('@netlify/blobs');
+      const store = getStore('blog-posts');
+      const { blobs } = await store.list();
+      const posts = [];
+      for (const blob of blobs) {
+        try {
+          const data = await store.get(blob.key, { type: 'json' });
+          if (data) posts.push(data);
+        } catch { continue; }
+      }
+      return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
     await ensureDir();
     const files = readdirSync(DATA_DIR).filter(f => f.endsWith('.json'));
     const posts = [];
@@ -19,9 +34,7 @@ async function getPosts() {
       try {
         const data = await readFile(path.join(DATA_DIR, file), 'utf-8');
         posts.push(JSON.parse(data));
-      } catch {
-        continue;
-      }
+      } catch { continue; }
     }
     return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
   } catch {
@@ -30,10 +43,16 @@ async function getPosts() {
 }
 
 async function getPostByKey(key) {
-  const id = key.replace('post-', '');
-  const filePath = path.join(DATA_DIR, `${id}.json`);
-  if (!existsSync(filePath)) return null;
   try {
+    if (isNetlify) {
+      const { getStore } = await import('@netlify/blobs');
+      const store = getStore('blog-posts');
+      return await store.get(key, { type: 'json' });
+    }
+
+    const id = key.replace('post-', '');
+    const filePath = path.join(DATA_DIR, `${id}.json`);
+    if (!existsSync(filePath)) return null;
     const data = await readFile(filePath, 'utf-8');
     return JSON.parse(data);
   } catch {
@@ -42,12 +61,28 @@ async function getPostByKey(key) {
 }
 
 async function savePost(post) {
+  const key = `post-${post.id}`;
+
+  if (isNetlify) {
+    const { getStore } = await import('@netlify/blobs');
+    const store = getStore('blog-posts');
+    await store.set(key, post);
+    return;
+  }
+
   await ensureDir();
   const filePath = path.join(DATA_DIR, `${post.id}.json`);
   await writeFile(filePath, JSON.stringify(post, null, 2));
 }
 
 async function deletePostByKey(key) {
+  if (isNetlify) {
+    const { getStore } = await import('@netlify/blobs');
+    const store = getStore('blog-posts');
+    await store.delete(key);
+    return;
+  }
+
   const id = key.replace('post-', '');
   const filePath = path.join(DATA_DIR, `${id}.json`);
   if (existsSync(filePath)) {
