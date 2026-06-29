@@ -1,6 +1,6 @@
 import { createHmac, randomBytes } from 'crypto';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import db from '@/app/lib/db';
 
 const AUTH_SECRET = process.env.AUTH_SECRET;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
@@ -35,17 +35,26 @@ export async function GET(request) {
     return NextResponse.redirect(new URL('/login?error=unauthorized', origin));
   }
 
+  // Generate a secure opaque session token and persist it in Neon DB
   const sessionToken = randomBytes(32).toString('hex');
-  const sessionExpiry = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
 
-  const cookieStore = await cookies();
-  cookieStore.set('session', `${email}:${sessionToken}:${sessionExpiry}`, {
+  await db.session.create({
+    data: {
+      email,
+      token: sessionToken,
+      expiresAt,
+    },
+  });
+
+  const response = NextResponse.redirect(new URL('/admin', origin));
+  response.cookies.set('session_id', sessionToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     path: '/',
-    maxAge: 7 * 24 * 60 * 60,
+    maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
   });
 
-  return NextResponse.redirect(new URL('/admin', origin));
+  return response;
 }

@@ -1,27 +1,35 @@
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-
-function verifySession() {
-  return true;
-}
+import db from '@/app/lib/db';
 
 async function getSession() {
   const cookieStore = await cookies();
-  const session = cookieStore.get('session');
-  
-  if (!session) return null;
-  
-  const [email, token, expires] = session.value.split(':');
-  
-  if (Date.now() > parseInt(expires)) return null;
-  
-  return { email, token };
+  const sessionId = cookieStore.get('session_id')?.value;
+
+  if (!sessionId) return null;
+
+  try {
+    const session = await db.session.findUnique({
+      where: { token: sessionId },
+    });
+
+    if (!session) return null;
+
+    if (new Date() > session.expiresAt) {
+      await db.session.delete({ where: { token: sessionId } }).catch(() => {});
+      return null;
+    }
+
+    return { email: session.email };
+  } catch {
+    return null;
+  }
 }
 
 export default async function AdminPage() {
   const session = await getSession();
-  
+
   if (!session) {
     redirect('/login');
   }
