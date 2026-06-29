@@ -1,0 +1,11 @@
+{
+  "id": "1775240000001",
+  "title": "Why I Build with Next.js in 2026",
+  "slug": "why-i-build-with-next-js-in-2026",
+  "cover": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
+  "content": "<p>Next.js has become my go-to framework for almost every project. Here's why.</p><h2>Server Components Changed Everything</h2><p>With React Server Components, I can fetch data directly in my components without worrying about client-side waterfalls. The mental model is simple: if it needs the database, it's a server component. If it needs interactivity, it's a client component.</p><h2>The File System Router</h2><p>Having routes map to file structure means zero configuration routing. Want a dynamic route? Create a folder with brackets. Need a layout? Add a <code>layout.js</code>. It just works.</p><h2>Performance Out of the Box</h2><p>Automatic code splitting, image optimization, font optimization, and static generation — all without touching a config file. My Lighthouse scores jumped from 60s to 90s just by switching from a traditional React SPA.</p><blockquote>The best framework is the one that gets out of your way and lets you build.</blockquote><h2>What I Use It For</h2><ul><li>Portfolio sites (like this one)</li><li>E-commerce stores with Stripe</li><li>Internal dashboards</li><li>API backends with route handlers</li></ul><p>Next.js isn't perfect, but it's the closest thing to a full-stack framework that feels natural.</p>",
+  "published": true,
+  "date": "2026-03-28T10:00:00.000Z",
+  "createdAt": "2026-03-28T10:00:00.000Z",
+  "updatedAt": "2026-04-03T19:12:56.679Z"
+}

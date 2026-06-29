@@ -19,8 +19,8 @@ export async function POST(req) {
 
     // Notify Reshuk
     await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: "reshuksapkota@gmail.com",
+      from: "Portfolio Contact <onboarding@mail.antqr.xyz>",
+      to: "reshuksapkota2007@gmail.com",
       subject: `New message from ${name} — Portfolio`,
       html: `
         <div style="font-family: monospace; background: #080808; color: #f0ede6; padding: 32px; border-radius: 8px; max-width: 560px;">
@@ -42,7 +42,7 @@ export async function POST(req) {
             </tr>
           </table>
           <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #242420; color: #888070; font-size: 11px;">
-            Sent from reshuksapkota.dev portfolio
+            Sent from reshuksapkota.com.np portfolio
           </div>
         </div>
       `,
@@ -50,7 +50,7 @@ export async function POST(req) {
 
     // Auto-reply to sender
     await resend.emails.send({
-      from: "Reshuk Sapkota <onboarding@resend.dev>",
+      from: "Reshuk Sapkota <onboarding@mail.antqr.xyz>",
       to: email,
       subject: "Got your message — Reshuk Sapkota",
       html: `
@@ -71,7 +71,7 @@ export async function POST(req) {
           </div>
           <div style="color: #888070; font-size: 12px;">
             — Reshuk Sapkota<br/>
-            <a href="mailto:reshuksapkota@gmail.com" style="color: #e8ff47; text-decoration: none;">reshuksapkota@gmail.com</a>
+            <a href="mailto:reshuksapkota2007@gmail.com" style="color: #e8ff47; text-decoration: none;">reshuksapkota2007@gmail.com</a>
             &nbsp;·&nbsp;
             <a href="${GITHUB}" style="color: #e8ff47; text-decoration: none;">GitHub</a>
           </div>

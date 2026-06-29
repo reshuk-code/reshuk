@@ -4,7 +4,7 @@ import path from 'path';
 import { getStore } from '@netlify/blobs';
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'posts');
-const isNetlify = process.env.NETLIFY === 'true' || process.env.CONTEXT;
+const isNetlify = process.env.NETLIFY === 'true' || !!process.env.CONTEXT;
 
 async function ensureDir() {
   if (!existsSync(DATA_DIR)) {
@@ -64,7 +64,7 @@ async function savePost(post) {
 
   if (isNetlify) {
     const store = getStore('blog-posts');
-    await store.set(key, post);
+    await store.set(key, JSON.stringify(post), { contentType: 'application/json' });
     return;
   }
 
@@ -128,7 +128,7 @@ export async function POST(request) {
     return Response.json(newPost);
   } catch (error) {
     console.error('Create post error:', error);
-    return Response.json({ error: 'Failed to create post' }, { status: 500 });
+    return Response.json({ error: `Failed to create post: ${error.message}` }, { status: 500 });
   }
 }
 

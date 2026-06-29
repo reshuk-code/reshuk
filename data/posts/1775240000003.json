@@ -1,0 +1,11 @@
+{
+  "id": "1775240000003",
+  "title": "Tailwind CSS v4 — What Changed and Why It Matters",
+  "slug": "tailwind-css-v4-what-changed",
+  "cover": "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&q=80",
+  "content": "<p>Tailwind CSS v4 dropped and it's a complete rewrite. Here's what you need to know.</p><h2>No More config File</h2><p>The <code>tailwind.config.js</code> is gone. Everything is configured through CSS imports and <code>@theme</code> directives. Less files, less confusion.</p><pre><code>@import \"tailwindcss\";\n\n@theme {\n  --color-accent: #e8ff47;\n  --font-display: 'Syne', sans-serif;\n}</code></pre><h2>Faster Compilation</h2><p>The new engine is written in Rust and compiles styles up to 5x faster. On large projects, this means near-instant rebuilds.</p><h2>Container Queries Built In</h2><p>No more plugins. Container queries are now native to Tailwind:</p><pre><code>&lt;div class=\"@container\"&gt;\n  &lt;div class=\"@sm:text-lg @lg:text-xl\"&gt;\n    Responsive text\n  &lt;/div&gt;\n&lt;/div&gt;</code></pre><h2>Should You Upgrade?</h2><p>If you're starting a new project, absolutely. For existing projects, the migration is mostly removing the config file and updating imports. Most utility classes work the same.</p><p>The future of CSS frameworks is here, and it's blazing fast.</p>",
+  "published": true,
+  "date": "2026-03-15T09:00:00.000Z",
+  "createdAt": "2026-03-15T09:00:00.000Z",
+  "updatedAt": ""
+}

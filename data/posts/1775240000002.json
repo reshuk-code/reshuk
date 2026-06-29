@@ -1,0 +1,11 @@
+{
+  "id": "1775240000002",
+  "title": "Building a Full-Stack App with Zero Config",
+  "slug": "building-fullstack-app-zero-config",
+  "cover": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
+  "content": "<p>I used to spend hours setting up build tools, configuring bundlers, and wiring together separate frontend and backend repos. Not anymore.</p><h2>The Old Way</h2><p>Remember when building a full-stack app meant:</p><ul><li>Setting up Express or Django for the backend</li><li>Configuring Webpack or Vite for the frontend</li><li>Managing CORS and proxy settings</li><li>Deploying two separate services</li></ul><h2>The New Way</h2><p>With Next.js App Router, everything lives in one project:</p><pre><code>app/\n  page.js          # frontend\n  api/\n    users/\n      route.js     # backend API</code></pre><p>API routes are just files. No server setup, no routing configuration. You export a function and it works.</p><h2>Database Integration</h2><p>Server components can query databases directly:</p><pre><code>async function getUsers() {\n  const db = await connectDB();\n  return db.users.findMany();\n}</code></pre><p>No API calls, no serialization overhead. Just direct database access from your components.</p><p>This is the developer experience I always wanted — less config, more building.</p>",
+  "published": true,
+  "date": "2026-03-20T14:30:00.000Z",
+  "createdAt": "2026-03-20T14:30:00.000Z",
+  "updatedAt": ""
+}
